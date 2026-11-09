@@ -1,0 +1,76 @@
+import { TouchableOpacity, StyleSheet, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { AppText as Text } from "./Typography.js";
+
+export default function HabitPresetCard({
+  title,
+  detail,
+  icon,
+  color,
+  selected,
+  onPress,
+}) {
+  return (
+    <TouchableOpacity
+      accessibilityRole="button"
+      accessibilityLabel={`Select ${title} habit`}
+      accessibilityState={selected ? { selected: true } : {}}
+      onPress={onPress}
+      style={[
+        styles.card,
+        { backgroundColor: color },
+        selected && styles.selectedCard,
+      ]}
+    >
+      <View style={styles.iconBox}>
+        <Ionicons name={icon} size={21} color={color} />
+      </View>
+      <View style={styles.copy}>
+        <Text numberOfLines={1} style={styles.title}>
+          {title}
+        </Text>
+        <Text numberOfLines={1} style={styles.detail}>
+          {detail}
+        </Text>
+      </View>
+      {selected && (
+        <View style={styles.check}>
+          <Ionicons name="checkmark" size={13} color={color} />
+        </View>
+      )}
+    </TouchableOpacity>
+  );
+}
+
+const styles = StyleSheet.create({
+  card: {
+    width: "48%",
+    minHeight: 100,
+    padding: 11,
+    borderRadius: 16,
+    justifyContent: "space-between",
+  },
+  selectedCard: { borderWidth: 2, borderColor: "#FFFFFF", elevation: 3 },
+  iconBox: {
+    width: 38,
+    height: 38,
+    borderRadius: 12,
+    backgroundColor: "#FFFFFF",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  copy: { paddingRight: 8, marginTop: 9 },
+  title: { color: "#FFFFFF", fontSize: 12, fontWeight: "700" },
+  detail: { color: "rgba(255,255,255,0.86)", fontSize: 9, marginTop: 2 },
+  check: {
+    position: "absolute",
+    right: 8,
+    top: 8,
+    width: 19,
+    height: 19,
+    borderRadius: 10,
+    backgroundColor: "#FFFFFF",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
